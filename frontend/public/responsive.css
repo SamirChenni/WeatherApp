@@ -1,0 +1,386 @@
+/* ==========================================================================
+   TABLET  (≤ 1024px)
+   Compress the 5-column stats grid, tighten card padding.
+   ========================================================================== */
+@media (max-width: 1024px) {
+  /* Stats grid: 5 → 3 columns */
+  .stats-grid-container {
+    grid-template-columns: repeat(3,1fr);
+    justify-items: center;
+  }
+
+  /* Weather card padding */
+  .weather-card-style {
+    padding: 30px;
+    max-width: 100%;
+    border-radius: 30px;
+  }
+
+  /* Give the page wrapper a comfortable side margin */
+  .page-center-wrapper {
+    padding: 0 24px;
+  }
+  .stat-tile {
+    padding: 20px 0 20px 0;
+    width: 100%; /* fill column */
+    height: 140px;
+  }
+  /* Slightly scale down the giant temperature */
+  .temp-value {
+    font-size: 6rem;
+  }
+
+  .outlook-title {
+    text-align: center;
+  }
+
+  .weather-icon-main img {
+    width: 140px;
+  }
+}
+
+/* ==========================================================================
+   MOBILE LANDSCAPE / LARGE PHONE  (≤ 768px)
+   Stack most horizontal layouts, reduce type sizes.
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* ── Header ── */
+  .main-header {
+    justify-content: space-between; /* logo left, nav right */
+    padding: 0.75rem 5%;
+  }
+
+  .nav-links {
+    gap: 0;
+  }
+
+  .nav-item {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.85rem;
+  }
+
+  /* ── App identity / search landing ── */
+  .app-identity {
+    margin: 8% 0 24px 0;
+  }
+
+  .app-title {
+    font-size: 32px;
+  }
+
+  .weather-logo-organized img {
+    height: 70px;
+    width: 70px;
+  }
+
+  .app-slogan {
+    font-size: 14px;
+  }
+
+  /* ── Search bar ── */
+  .search-container {
+    max-width: 100%;
+    margin-bottom: 60px;
+  }
+
+  .page-center-wrapper {
+    padding: 0 20px;
+  }
+
+  /* ── Weather header (city + date) ──
+     Stack vertically on small screens  */
+  .weather-header {
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .weather-header h1 {
+    font-size: 2.2rem;
+  }
+
+  .date-local {
+    align-items: flex-start; /* left-align after stacking */
+  }
+
+  .weather-header p {
+    text-align: left;
+  }
+
+  /* ── Main weather block ── */
+  .main-weather-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .weather-icon-main img {
+    width: 120px;
+  }
+
+  .temp-value {
+    font-size: 5rem;
+  }
+
+  .temp-degree {
+    font-size: 2rem;
+    margin-top: 10px;
+  }
+
+  .weather-description h2 {
+    font-size: 1.4rem;
+  }
+
+  /* Center the unit toggle when stacked */
+  .unit-toggle {
+    margin-left: 0;
+  }
+
+  /* ── Stats grid: 3 → 2 columns ── */
+  .stats-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .stat-tile {
+    padding: 40px 0 40px 0;
+    width: 100%; /* fill column */
+    height: 140px;
+  }
+
+  /* ── Forecast section ── */
+  .outlook-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 900px;
+  }
+
+  .outlook-title {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  /* ── Weather card ── */
+  .weather-card-style {
+    padding: 20px;
+    border-radius: 24px;
+    margin-bottom: 14px;
+  }
+
+  /* ── Scroll to top button ── */
+  .scroll-to-top-btn {
+    bottom: 24px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* ==========================================================================
+   MOBILE PORTRAIT  (≤ 480px)
+   Single-column layouts, tighter spacing, larger touch targets.
+   ========================================================================== */
+@media (max-width: 480px) {
+  /* ── Header: stack logo above nav, center both ── */
+  .main-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 5%;
+  }
+
+  .nav-links {
+    justify-content: center;
+  }
+
+  .nav-item {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  /* ── Identity ── */
+  .app-identity {
+    margin: 10% 0 20px 0;
+  }
+
+  .app-title {
+    font-size: 26px;
+    letter-spacing: -0.3px;
+  }
+
+  .weather-logo-organized img {
+    height: 58px;
+    width: 58px;
+  }
+
+  .app-slogan {
+    font-size: 13px;
+  }
+
+  /* ── Search ── */
+  .search-container {
+    margin-bottom: 40px;
+  }
+
+  .search-input {
+    font-size: 15px;
+    padding: 11px 14px 11px 48px;
+  }
+
+  .page-center-wrapper {
+    padding: 0 16px;
+  }
+
+  /* ── Weather header ── */
+  .weather-header {
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .weather-header h1 {
+    font-size: 1.8rem;
+  }
+
+  /* ── Main weather ── */
+  .main-weather-container {
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .weather-icon-main img {
+    width: 100px;
+  }
+
+  .temp-value {
+    font-size: 4.2rem;
+  }
+
+  .temp-degree {
+    font-size: 1.6rem;
+    margin-top: 8px;
+  }
+
+  .weather-description h2 {
+    font-size: 1.2rem;
+  }
+
+  .weather-description p {
+    font-size: 0.85rem;
+  }
+
+  /* ── Stats grid: 2 → 1 column on very small screens ──
+     Shows two tiles side by side as long as they fit,
+     falls back to single column below 360px            */
+  .stats-grid-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .stat-tile {
+    padding: 20px 0 20px 0;
+    height: 130px;
+    border-radius: 16px;
+    padding: 14px;
+  }
+
+  .stat-value {
+    font-size: 1rem;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+  }
+
+  /* ── Weather card ── */
+  .weather-card-style {
+    padding: 16px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+  }
+
+  /* ── Forecast ── */
+  .outlook-title {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  /* ── Scroll to top ── */
+  .scroll-to-top-btn {
+    bottom: 16px;
+    right: 14px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ==========================================================================
+   VERY SMALL PHONES  (≤ 360px)
+   Single column for stats, max font reduction.
+   ========================================================================== */
+@media (max-width: 360px) {
+  .app-title {
+    font-size: 22px;
+  }
+
+  .temp-value {
+    font-size: 3.6rem;
+  }
+
+  /* Single-column stats */
+  .stats-grid-container {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-tile {
+    width: 100%;
+    height: auto;
+    padding: 14px 20px;
+    flex-direction: row; /* icon + text in a row */
+    justify-content: flex-start;
+    gap: 14px;
+    text-align: left;
+  }
+
+  .stat-icon {
+    margin-bottom: 0;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .weather-card-style {
+    padding: 14px;
+    border-radius: 18px;
+  }
+}
+
+/* ==========================================================================
+   REDUCED MOTION  —  respect user preferences
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .weather-icon-main img,
+  .weather-logo-organized img {
+    animation: none;
+  }
+
+  .app-identity {
+    animation: none;
+  }
+
+  .scroll-to-top-btn {
+    animation: none;
+  }
+
+  .clear-icon-wrapper {
+    animation: none;
+  }
+
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}

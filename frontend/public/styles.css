@@ -1,0 +1,664 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "DM Sans", sans-serif;
+}
+
+.main-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1rem 5%;
+  background-color: transparent;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-text-primary, #333);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+}
+
+.nav-item {
+  text-decoration: underline;
+  text-underline-offset: 10px;
+  color: var(--color-text-secondary, #555);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+/* Hover Effects */
+.nav-item:hover {
+  background-color: var(--color-surface-hover, #f0f0f0);
+  color: var(--color-accent, #007bff);
+}
+
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: background 0.8s ease-in-out;
+}
+
+/*
+  Background colors based on Weather state and local time
+*/
+
+/* 1. Default / Initial State (dark teal — treat as dark theme) */
+.bg-default {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+
+  --color-text-primary:   #e8f4f8;   /* near-white headings */
+  --color-text-secondary: #a8c8d8;   /* muted blue-grey */
+  --color-text-muted:     #6a9ab0;   /* labels, subtexts */
+  --color-accent:         #38bdf8;   /* bright sky blue */
+  --color-accent-alt:     #7dd3fc;
+  --color-surface:        rgba(255, 255, 255, 0.08);
+  --color-surface-hover:  rgba(255, 255, 255, 0.15);
+  --color-border:         rgba(255, 255, 255, 0.15);
+  --color-icon:           #38bdf8;
+  --color-badge-bg:       rgba(255, 255, 255, 0.12);
+  --color-badge-text:     #a8c8d8;
+  --color-btn-bg:         #38bdf8;
+  --color-btn-text:       #0f172a;
+  --color-input-border:   #38bdf8;
+  --color-input-glow:     rgba(56, 189, 248, 0.25);
+  --color-search-icon-bg: #38bdf8;
+  --color-search-icon-fg: #0f172a;
+}
+
+/* 2. Sunny / Clear Day (bright — dark text for contrast) */
+.bg-sunny {
+  background: linear-gradient(135deg, #2980b9, #6dd5fa, #ffffff);
+
+  --color-text-primary:   #0d2137;
+  --color-text-secondary: #1a3a52;
+  --color-text-muted:     #3a6a8a;
+  --color-accent:         #0d2137;
+  --color-accent-alt:     #1a4a6e;
+  --color-surface:        rgba(255, 255, 255, 0.35);
+  --color-surface-hover:  rgba(255, 255, 255, 0.55);
+  --color-border:         rgba(13, 33, 55, 0.15);
+  --color-icon:           #0d2137;
+  --color-badge-bg:       rgba(13, 33, 55, 0.1);
+  --color-badge-text:     #1a3a52;
+  --color-btn-bg:         #0d2137;
+  --color-btn-text:       #ffffff;
+  --color-input-border:   #0d2137;
+  --color-input-glow:     rgba(13, 33, 55, 0.2);
+  --color-search-icon-bg: #0d2137;
+  --color-search-icon-fg: #ffffff;
+}
+
+/* 3. Cloudy Day (medium contrast — keep readable) */
+.bg-cloudy {
+  background: linear-gradient(135deg, #bdc3c7, #2c3e50);
+
+  --color-text-primary:   #1c2f41;
+  --color-text-secondary: #2c3e50;
+  --color-text-muted:     #0f1e2e;
+  --color-accent:         #1a252f;
+  --color-accent-alt:     #2e4057;
+  --color-surface:        rgba(255, 255, 255, 0.25);
+  --color-surface-hover:  rgba(255, 255, 255, 0.4);
+  --color-border:         rgba(44, 62, 80, 0.2);
+  --color-icon:           #1a252f;
+  --color-badge-bg:       rgba(44, 62, 80, 0.12);
+  --color-badge-text:     #2c3e50;
+  --color-btn-bg:         #2c3e50;
+  --color-btn-text:       #ecf0f1;
+  --color-input-border:   #2c3e50;
+  --color-input-glow:     rgba(44, 62, 80, 0.2);
+  --color-search-icon-bg: #2c3e50;
+  --color-search-icon-fg: #ecf0f1;
+}
+
+/* 4. Rainy / Stormy Day (dark blue-grey — light text) */
+.bg-rainy {
+  background: linear-gradient(135deg, #617ca5, #2a3a52);
+
+  --color-text-primary:   #dce8f5;
+  --color-text-secondary: #a8bdd4;
+  --color-text-muted:     #7896b4;
+  --color-accent:         #90c2e7;
+  --color-accent-alt:     #b8d8f0;
+  --color-surface:        rgba(255, 255, 255, 0.1);
+  --color-surface-hover:  rgba(255, 255, 255, 0.18);
+  --color-border:         rgba(255, 255, 255, 0.15);
+  --color-icon:           #90c2e7;
+  --color-badge-bg:       rgba(255, 255, 255, 0.1);
+  --color-badge-text:     #a8bdd4;
+  --color-btn-bg:         #90c2e7;
+  --color-btn-text:       #0f1e30;
+  --color-input-border:   #90c2e7;
+  --color-input-glow:     rgba(144, 194, 231, 0.25);
+  --color-search-icon-bg: #90c2e7;
+  --color-search-icon-fg: #0f1e30;
+}
+
+/* 5. Night Time (very dark — bright/soft light text) */
+.bg-night {
+  background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+
+  --color-text-primary:   #f0f6ff;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted:     #abc5e9;
+  --color-accent:         #818cf8;
+  --color-accent-alt:     #a5b4fc;
+  --color-surface:        rgba(255, 255, 255, 0.06);
+  --color-surface-hover:  rgba(255, 255, 255, 0.12);
+  --color-border:         rgba(255, 255, 255, 0.1);
+  --color-icon:           #818cf8;
+  --color-badge-bg:       rgba(129, 140, 248, 0.15);
+  --color-badge-text:     #94a3b8;
+  --color-btn-bg:         #818cf8;
+  --color-btn-text:       #0f172a;
+  --color-input-border:   #818cf8;
+  --color-input-glow:     rgba(129, 140, 248, 0.25);
+  --color-search-icon-bg: #818cf8;
+  --color-search-icon-fg: #0f172a;
+}
+
+.notes-wrapper {
+  flex: 1;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 1rem;
+  background-color: transparent;
+  color: var(--color-text-muted, #555);
+}
+
+
+/* Main Title */
+.app-title {
+  font-size: 42px;
+  font-weight: 700;
+  color: var(--color-text-primary, #170c79);
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+
+
+/* Identity Wrapper */
+
+.app-identity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 24px; /* Creates clean breathing space above your search bar */
+  animation: fadeInDown 0.6s ease-out; /* Smooth entrance animation */
+  margin: 5% 0 30px 0;
+}
+
+.weather-logo-organized
+{
+  display: flex;
+  align-items: center;
+}
+
+.weather-logo-organized img
+{
+  height: 90px;
+  width: 90px;
+  animation-name: float;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+/* "Cast" Accent Color */
+.title-accent {
+  color: var(--color-accent-alt, #5142a4);
+  font-weight: 400;
+}
+
+/* Subtitle / Slogan */
+.app-slogan {
+  font-size: 16px;
+  color: var(--color-text-muted, #5f7182);
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Subtle fade-in animation */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* SearchBar style */
+
+.page-center-wrapper {
+  display: flex;
+  flex-direction: column; /* Centers horizontally */
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 0 100px 0;
+}
+.search-input {
+  width: 100%;
+  padding: 12px 15px 12px 50px;
+  font-family: "DM Sans", sans-serif;
+  font-size: 16px;
+  border-radius: 50px;
+  border: 1px solid var(--color-input-border, #170c79);
+  background-color: #fff;
+  opacity: 0.4;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+/* Outline effect on focus */
+.search-input:focus {
+  border-color: var(--color-input-border, #170c79);
+  box-shadow: 0 0 0 3px var(--color-input-glow, rgba(9, 60, 93, 0.2));
+}
+
+.search-icon-wrapper {
+  position: absolute;
+  left: 7px;
+  background-color: var(--color-search-icon-bg, #170c79);
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-search-icon-fg, white);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.clear-icon-wrapper
+{
+  position: absolute;
+  right:7px;
+  width: 40px;
+  height: 35px;
+  cursor: pointer;
+  animation: explode 0.4s ease-out;
+}
+
+@keyframes explode {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+} 
+
+.suggestions-list {
+  position: absolute;
+  top: 120%; /* Places it right below the input */
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 20px;
+  scrollbar-width: none;
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.suggestions-list li {
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background 0.2s;
+  color: #333;
+}
+
+.suggestions-list li:hover {
+  background-color: #f0f0f0;
+  color: var(--color-accent, #170c79);
+}
+
+.no-suggestions
+{
+  position: absolute;
+  top: 120%; 
+  left: 15%;
+  width: 100%;
+  padding: 10px 20px; 
+  color: red;
+}
+
+/* Weather Header Styles */
+
+.weather-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  color: var(--color-text-primary, #1a1a40);
+}
+
+.city-country {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.weather-header h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0;
+  line-height: 1;
+}
+
+.country {
+  background-color: var(--color-badge-bg, #f0f0f0);
+  border-radius: 15px;
+  padding: 2px 12px;
+  width: fit-content;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--color-badge-text, #888);
+  text-transform: uppercase;
+}
+
+/* Right side date/time styles */
+.weather-header p {
+  text-align: right;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary, #444);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.date-local
+{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* MainWeather component */
+
+.main-weather-container {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.weather-icon-main img {
+  width: 180px; /* Adjust based on your icon size */
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
+  animation-name: float;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.temp-display {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+
+.temp-value {
+  font-size: 8rem;
+  font-weight: 700;
+  color: var(--color-text-primary, #1a1a40);
+  line-height: 0.8;
+}
+
+.temp-degree {
+  font-size: 2.5rem;
+  margin-top: 15px;
+  color: var(--color-text-primary, #1a1a40);
+  font-weight: 300;
+}
+
+/* Toggle Switcher */
+.unit-toggle {
+  position: relative;
+  display: flex;
+  background-color: var(--color-surface, #f0f0f0);
+  border-radius: 20px;
+  margin-left: 20px;
+  margin-top: 25px;
+  width: fit-content;
+}
+
+.unit-toggle button {
+  position: relative;
+  z-index: 2;
+  border: none;
+  background: none;
+  padding: 10px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.8rem;
+  color: var(--color-text-muted, #888);
+  transition: color 0.3s ease;
+}
+
+.unit-toggle button.active {
+  color: var(--color-btn-text, white);
+}
+.selection-slider {
+  position: absolute;
+  height: calc(100%);
+  width: calc(50%);
+  background-color: var(--color-btn-bg, #170c79);
+  border-radius: 18px;
+  z-index: 1;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Move the slider to the right when F is selected */
+.slide-right {
+  transform: translateX(100%);
+}
+
+.weather-description h2 {
+  font-size: 1.8rem;
+  color: var(--color-text-secondary, #6a6a8a);
+  margin: 10px 0 0 0;
+  font-weight: 500;
+}
+
+.weather-description p {
+  color: var(--color-text-muted, #888);
+  margin: 5px 0;
+}
+
+/* WeatherStatsGrid */
+
+.stats-grid-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Style for the individual StatTile (props-based) */
+.stat-tile {
+  background-color: var(--color-surface, rgb(245, 245, 245, 0.3));
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  height: 140px;
+  width: 140px;
+}
+
+.stat-tile:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+  font-size: 1.5rem;
+  color: var(--color-icon, #170c79);
+  margin-bottom: 10px;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  font-weight: bold;
+  color: var(--color-text-muted, #9ca3af);
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.stat-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text-primary, #1f2937);
+  margin: 5px 0;
+}
+
+.stat-subtext {
+  font-size: 0.7rem;
+  color: var(--color-text-muted, #9ca3af);
+  margin: 0;
+}
+
+/* Forecast Grid */
+
+.outlook-container
+{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 900px;
+}
+
+.outlook-title
+{
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary, #1a1a40);
+}
+
+.outlook-icon img
+{ 
+  height: 50px;
+  width: 50px;
+}
+
+
+
+
+/* Weather Card Style */
+
+.weather-card-style {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 900px;
+  /* Glassmorphism Effect */
+  background: rgb(245, 245, 245 , 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); /* For Safari support */
+  border-radius: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+}
+
+
+/* ==========================================================================
+   SCROLL TO TOP FLOATING ACTION BUTTON
+   ========================================================================== */
+.scroll-to-top-btn {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 50px;
+  height: 50px;
+  background-color: var(--color-btn-bg, #170c79);
+  color: var(--color-btn-text, #ffffff);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(23, 12, 121, 0.3);
+  z-index: 2000;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: popIn 0.3s ease-out;
+}
+
+.scroll-to-top-btn:hover {
+  filter: brightness(1.15);
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Quick spring animation when the button mounts into view */
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

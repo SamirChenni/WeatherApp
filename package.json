@@ -1,0 +1,17 @@
+{
+  "name": "weather-app",
+  "version": "1.0.0",
+  "description": "A simple react weather app",
+  "license": "ISC",
+  "author": "Chenni Samir",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "server": "cd backend && nodemon server.js",
+    "client": "cd frontend && npm run dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "dependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
