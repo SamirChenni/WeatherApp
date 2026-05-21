@@ -6,7 +6,7 @@ const { City } = require("country-state-city");
 const app = express();
 
 app.use(cors({
-  origin: [process.env.FRONTEND_URL, "https://your-app.netlify.app"]
+  origin: [process.env.FRONTEND_URL, "https://monmeteo.netlify.app"]
 }));
 
 app.use(express.json());
