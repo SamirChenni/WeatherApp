@@ -5,7 +5,10 @@ const axios = require("axios");
 const { City } = require("country-state-city");
 const app = express();
 
-app.use(cors({ origin: process.env.FRONTEND_URL })); 
+app.use(cors({
+  origin: [process.env.FRONTEND_URL, "https://your-app.netlify.app"]
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -104,9 +107,10 @@ app.post("/weather", async (req, res) => {
     res.status(404).json({ message: "City not found" });
   }
 });
+const PORT = process.env.PORT;
 
-app.listen(process.env.SERVER_PORT, () => {
-  console.log(`Server is running on port ${process.env.SERVER_PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
 
 

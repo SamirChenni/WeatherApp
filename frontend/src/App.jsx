@@ -29,13 +29,13 @@ const getBackgroundClass = (weatherData) => {
 export default function App() {
   const [weatherData, setWeatherData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
   
   const backgroundClass = getBackgroundClass(weatherData);
   const fetchWeather = async (cityName) => {
     try {
       setIsLoading(true);
-      const response = await axios.post("http://localhost:3000/weather", {
+      const response = await axios.post(`${API_URL}/weather`, {
         cityName,
       });
       setWeatherData(response.data);
